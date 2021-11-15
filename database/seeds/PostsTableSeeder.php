@@ -21,7 +21,7 @@ class PostsTableSeeder extends Seeder
             $post->title = $faker->sentence(1);
             $post->author = $faker->sentence(1);
             $post->post_date = $faker->dateTimeThisYear();
-            $post->post_content = $faker->paragraph(3);
+            $post->post_content = $faker->paragraph(17);
             $post->image_url = $faker->imageUrl(300, 300, $post->title);
 
             $post->save();
