@@ -13,12 +13,12 @@ class AddColumnPostsIdTable extends Migration
      */
     public function up()
     {
-        Schema::table('category', function (Blueprint $table) {
-            $table->unsignedBigInteger("posts id");
+        Schema::table('posts', function (Blueprint $table) {
+            $table->unsignedBigInteger("category_id")->after("id")->nullable();
 
-            $table->foreign("post_id")
+            $table->foreign("category_id")
             ->references("id")
-            ->on("posts");
+            ->on("categories")->onDelete("set null");
         });
     }
 
@@ -29,8 +29,10 @@ class AddColumnPostsIdTable extends Migration
      */
     public function down()
     {
-        Schema::table('category', function (Blueprint $table) {
-            $table->dropForeign(["post_id"]);
+        Schema::table('posts', function (Blueprint $table) {
+            $table->dropForeign(['category_id']);
+
+            $table->dropColumn("category_id");
         });
     }
 }
