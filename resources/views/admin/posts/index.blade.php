@@ -6,6 +6,9 @@
         <div class="row">
             <div class="col-12">
                 <h2>Post da visualizzare</h2>
+                <a href="{{ route("admin.posts.create") }}">
+                    <h6>Crea nuovo post</h6>
+                </a>
             </div>
             @forelse ($posts as $post)
                 <div class="col-12">
@@ -25,8 +28,13 @@
                                 <p class="card-text">
                                     <small class="text-muted">
                                         Fatto da: {{$post->author}} il {{$post->post_date}}
-                                    </small></p>
-                                </div>
+                                    </small>
+                                </p>
+                                <a class="card-text" href="{{ route("admin.posts.edit", $post) }}">
+                                    <h6>Modifica post</h6>
+                                </a>
+                            </div>
+                                
                             </div>
                         </div>
                     </div>
