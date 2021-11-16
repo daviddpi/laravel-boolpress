@@ -9,6 +9,11 @@
                 <a href="{{ route("admin.posts.create") }}">
                     <h6>Crea nuovo post</h6>
                 </a>
+                @if (session('delete'))
+                    <div class="alert alert-success" role="alert">
+                        {{ session('delete') }} Cancellazione eseguita correttamente!
+                    </div>
+                @endif
             </div>
             @forelse ($posts as $post)
                 <div class="col-12">
@@ -30,9 +35,18 @@
                                         Fatto da: {{$post->author}} il {{$post->post_date}}
                                     </small>
                                 </p>
-                                <a class="card-text" href="{{ route("admin.posts.edit", $post) }}">
-                                    <h6>Modifica post</h6>
-                                </a>
+                                <div class="d-flex align-items-center">
+                                    <a class="card-text" href="{{ route("admin.posts.edit", $post) }}">
+                                        <h6>Modifica post</h6>
+                                    </a>
+                                    <form class="card-text mx-3" action="{{route("admin.posts.destroy", $post)}}" method="POST">
+                                    @method('DELETE')
+                                    @csrf
+                                        <button type="submit" class="btn btn-danger">
+                                            Cancella post
+                                        </button>
+                                    </form>
+                                </div>
                             </div>
                                 
                             </div>
