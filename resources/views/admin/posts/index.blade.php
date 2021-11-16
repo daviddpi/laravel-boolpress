@@ -16,7 +16,9 @@
                             </div>
                             <div class="col-md-8">
                                 <div class="card-body">
-                                <h5 class="card-title">{{$post->title}}</h5>
+                                    <a href="{{ route("admin.posts.show", $post) }}">
+                                        <h5 class="card-title">{{$post->title}}</h5>
+                                    </a>
                                 <p class="card-text">
                                     {{$post->post_content}}
                                 </p>
