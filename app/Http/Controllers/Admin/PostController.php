@@ -40,11 +40,12 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-       $data = $request->all();
 
+       $data = $request->all();
        $post = new Post();
-       $post->fill($data);
        $post->post_date = Carbon::now()->toDateTimeString();
+
+       $post->fill($data);
        $post->save();
 
        return redirect()->route("admin.posts.show", compact("post"));
@@ -82,6 +83,7 @@ class PostController extends Controller
      */
     public function update(Request $request, Post $post)
     {
+
         $data = $request->all();
         $post->update($data);
 

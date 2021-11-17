@@ -13,6 +13,7 @@
                         <div class="col-md-8">
                             <div class="card-body">
                             <h5 class="card-title">{{$post->title}}</h5>
+                            <span class="badge badge-info px-3 mb-4">{{$post->category->name}}</span>
                             <p class="card-text">
                                 {{$post->post_content}}
                             </p>
