@@ -17,6 +17,14 @@
                 value="{{$post->author}}">
             </div>
             <div class="form-group">
+                <select name="category_id" id="category_id">
+                    <option>Nessuna categoria</option>
+                    @foreach ($categories as $category)
+                        <option value="{{ $category->id }}">{{ $category->name }}</option>
+                    @endforeach
+                </select>
+            </div>
+            <div class="form-group">
                 <label for="post_content">Inserisci il contenuto</label>
                 <textarea type="text" class="form-control" name="post_content" id="post_content" placeholder="Contenuto ...">
                     {{$post->post_content}}

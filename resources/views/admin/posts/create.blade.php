@@ -13,11 +13,14 @@
                 <label for="author">Inserisci l'autore</label>
                 <input type="text" class="form-control" name="author" id="author" placeholder="Autore">
             </div>
-            {{-- <div class="form-group">
-                <label for="post_date">Data dell'ultima modifica</label>
-                <input type="text" class="form-control" name="post_date" id="post_date" placeholder="Data"
-                value="{{  }}">
-            </div> --}}
+            <div class="form-group">
+                <select name="category_id" id="category_id">
+                    <option>Nessuna categoria</option>
+                    @foreach ($categories as $category)
+                        <option value="{{ $category->id }}">{{ $category->name }}</option>
+                    @endforeach
+                </select>
+            </div>
             <div class="form-group">
                 <label for="post_content">Inserisci il contenuto</label>
                 <textarea type="text" class="form-control" name="post_content" id="post_content" placeholder="Contenuto ...">
