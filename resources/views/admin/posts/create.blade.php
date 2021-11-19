@@ -15,7 +15,7 @@
             </div>
             <div class="form-group">
                 <select name="category_id" id="category_id">
-                    <option>Nessuna categoria</option>
+                    <option value="{{null}}">Nessuna categoria</option>
                     @foreach ($categories as $category)
                         <option value="{{ $category->id }}">{{ $category->name }}</option>
                     @endforeach
