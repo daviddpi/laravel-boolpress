@@ -24,11 +24,17 @@
                             </div>
                             <div class="col-md-8">
                                 <div class="card-body">
+
                                     <a href="{{ route("admin.posts.show", $post) }}">
                                         <h5 class="card-title">{{$post->title}}</h5>
                                     </a>
-                                <span class="badge badge-info px-3 mb-4">{{$post->category->name}}</span>
-                                
+
+                                @if ($post->category)
+                                    <span class="badge badge-info px-3 mb-4">{{$post->category->name}}</span>
+                                @else <span class="badge badge-warning">Nessuna categoria</span>
+
+                                @endif
+
                                 <p class="card-text">
                                     {{$post->post_content}}
                                 </p>

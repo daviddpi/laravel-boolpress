@@ -7,6 +7,7 @@ use Illuminate\Support\Carbon;
 use Illuminate\Http\Request;
 use App\Category;
 use App\Post;
+use App\Tag;
 
 class PostController extends Controller
 {
@@ -29,7 +30,9 @@ class PostController extends Controller
     public function create(Category $categories)
     {
         $categories = Category::all();
-        return view("admin.posts.create", compact("categories"));
+
+        $tags = Tag::all();
+        return view("admin.posts.create", compact("categories", "tags"));
     }
 
     /**
@@ -47,6 +50,9 @@ class PostController extends Controller
 
        $post->fill($data);
        $post->save();
+
+       //se esiste una key tags in data la inserisce nel post
+       if(array_key_exists("tags", $data)) $post->tags()->sync($data["tags"]);
 
        return redirect()->route("admin.posts.show", compact("post"));
     }

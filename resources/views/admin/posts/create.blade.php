@@ -13,6 +13,7 @@
                 <label for="author">Inserisci l'autore</label>
                 <input type="text" class="form-control" name="author" id="author" placeholder="Autore">
             </div>
+
             <div class="form-group">
                 <select name="category_id" id="category_id">
                     <option value="{{null}}">Nessuna categoria</option>
@@ -21,6 +22,18 @@
                     @endforeach
                 </select>
             </div>
+
+            <div class="form-group">
+                <legend>Tag</legend>
+                @foreach ($tags as $tag)
+                    <div class="form-check-inline mx-3">
+                        <input class="form-check-input" type="checkbox" id="tag-{{$tag->id}}" name="tags[]"
+                        value="{{$tag->id}}">
+                        <label class="form-check-label" for="tag-{{$tag->id}}">{{$tag->name}}</label>
+                    </div>
+                @endforeach
+            </div>
+
             <div class="form-group">
                 <label for="post_content">Inserisci il contenuto</label>
                 <textarea type="text" class="form-control" name="post_content" id="post_content" placeholder="Contenuto ...">
