@@ -79,7 +79,9 @@ class PostController extends Controller
         $categories = Category::all();
         $tags = Tag::all();
 
-        return view("admin.posts.edit", compact("post", "categories", "tags"));
+        $tagIds = $post->tags->pluck("id")->toArray();
+
+        return view("admin.posts.edit", compact("post", "categories", "tags" ,"tagIds"));
     }
 
     /**

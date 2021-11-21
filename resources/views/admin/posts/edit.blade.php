@@ -20,7 +20,7 @@
                 <select name="category_id" id="category_id">
                     <option value="{{null}}">Nessuna categoria</option>
                     @foreach ($categories as $category)
-                        <option @if (old("category_id") == $category_id) selected @endif
+                        <option @if (old("category_id") == $category->id) selected @endif
                         value="{{ $category->id }}">{{ $category->name }}</option>
                     @endforeach
                 </select>
@@ -30,6 +30,7 @@
                 @foreach ($tags as $tag)
                     <div class="form-check-inline mx-3">
                         <input class="form-check-input" type="checkbox" id="tag-{{$tag->id}}" name="tags[]"
+                        @if (in_array($tag->id, old("tags", $tagIds ? $tagIds : [])) checked @endif
                         value="{{$tag->id}}">
                         <label class="form-check-label" for="tag-{{$tag->id}}">{{$tag->name}}</label>
                     </div>
