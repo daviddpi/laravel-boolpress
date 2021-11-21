@@ -97,7 +97,7 @@ class PostController extends Controller
         $data = $request->all();
         $post->update($data);
 
-       if(array_key_exists("tags", $data)) $post->tags()->sync($data["tags"]);
+        if(array_key_exists("tags", $data)) $post->tags()->sync($data["tags"]);
 
         return redirect()->route("admin.posts.show", compact("post"));
     }
@@ -110,6 +110,8 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
+        if($post->tags) $post->tags()->detach();
+        
         $post->delete();
         return redirect()->route("admin.posts.index")->with('delete', $post->title);
     }
