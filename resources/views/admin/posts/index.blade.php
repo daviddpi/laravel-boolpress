@@ -30,10 +30,18 @@
                                     </a>
 
                                 @if ($post->category)
-                                    <span class="badge badge-info px-3 mb-4">{{$post->category->name}}</span>
+                                    <span class="badge badge-info px-3 mb-3">{{$post->category->name}}</span>
                                 @else <span class="badge badge-warning">Nessuna categoria</span>
 
                                 @endif
+
+                                <div class="d-flex mb-2 me-2">
+                                    @forelse ($post->tags as $tag)
+                                       <span class="badge m-1" style="background-color: {{$tag->color}}">{{$tag->name}}</span>
+                                    @empty
+                                       <span class="badge badge-warning">Nessun tag</span>
+                                    @endforelse
+                                </div>
 
                                 <p class="card-text">
                                     {{$post->post_content}}
