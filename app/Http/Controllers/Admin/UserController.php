@@ -15,6 +15,7 @@ class UserController extends Controller
      */
     public function index(User $users)
     {
+        $users = User::all();
         return view("admin.users.index", compact("users"));
     }
 
@@ -25,7 +26,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        return view("auth.register");
     }
 
     /**
@@ -45,9 +46,9 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(User $user)
     {
-        //
+        return view("admin.users.show", compact("user"));
     }
 
     /**
@@ -56,9 +57,9 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(User $user)
     {
-        //
+        return view("admin.users.edit", compact("user"));
     }
 
     /**
@@ -68,9 +69,12 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, User $user)
     {
-        //
+        $data = $request->all();
+        $user->update($data);
+
+        return redirect()->route("admin.users.show", compact("user"));
     }
 
     /**

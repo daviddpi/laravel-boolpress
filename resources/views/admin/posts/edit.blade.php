@@ -9,12 +9,12 @@
             <div class="form-group">
                 <label for="title">Inserisci il titolo</label>
                 <input type="text" class="form-control" name="title" id="title" placeholder="Titolo"
-                value="{{$post->title}}">
+                value="{{$post->title}}" required>
             </div>
             <div class="form-group">
                 <label for="author">Inserisci l'autore</label>
                 <input type="text" class="form-control" name="author" id="author" placeholder="Autore"
-                value="{{$post->author}}">
+                value="{{$post->author}}" required>
             </div>
             <div class="form-group">
                 <select name="category_id" id="category_id">
@@ -38,14 +38,14 @@
             </div>
             <div class="form-group">
                 <label for="post_content">Inserisci il contenuto</label>
-                <textarea type="text" class="form-control" name="post_content" id="post_content" placeholder="Contenuto ...">
+                <textarea type="text" class="form-control" name="post_content" id="post_content" placeholder="Contenuto ..." required>
                     {{$post->post_content}}
                 </textarea>
             </div>
             <div class="form-group">
                 <label for="image_url">Inserisci l'url dell'immagine</label>
                 <input type="text" class="form-control" name="image_url" id="image_url" placeholder="Url .."
-                value="{{$post->image_url}}">
+                value="{{$post->image_url}}" required>
             </div>
             <button class="btn btn-primary" type="submit">Salva</button>
             <button class="btn btn-secondary" type="reset">Svuota campi</button>

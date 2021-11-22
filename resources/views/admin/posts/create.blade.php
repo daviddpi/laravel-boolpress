@@ -7,7 +7,8 @@
         @csrf
             <div class="form-group">
                 <label for="title">Inserisci il titolo</label>
-                <input type="text" class="form-control" name="title" id="title" placeholder="Titolo">
+                <input type="text" class="form-control" name="title" id="title" placeholder="Titolo"
+                required>
             </div>
             <div class="form-group">
                 <label for="author">Inserisci l'autore</label>
