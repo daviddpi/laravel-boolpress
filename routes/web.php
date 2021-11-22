@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -26,6 +27,7 @@ Route::middleware('auth')
 ->group( function(){
     Route::get("/", "HomeController@index");
     Route::resource("posts", PostController::class);
+    Route::resource("users", "UserController");
 });
 
 Route::get('/', 'Guests\HomeController@index')->name('guests.home');
