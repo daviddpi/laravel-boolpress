@@ -2,24 +2,37 @@
 
 @section('content')
     <div class="container">
+
+        @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+
         <a href="{{route("admin.posts.index")}}">Torna indietro</a>
         <form action="{{ route("admin.posts.store") }}" method="POST">
         @csrf
             <div class="form-group">
                 <label for="title">Inserisci il titolo</label>
                 <input type="text" class="form-control" name="title" id="title" placeholder="Titolo"
-                required>
+                 value="{{old("title",$post->title)}}">
             </div>
             <div class="form-group">
                 <label for="author">Inserisci l'autore</label>
-                <input type="text" class="form-control" name="author" id="author" placeholder="Autore">
+                <input type="text" class="form-control" name="author" id="author" placeholder="Autore"
+                value="{{old("author", $post->author)}}">
             </div>
 
             <div class="form-group">
                 <select name="category_id" id="category_id">
                     <option value="{{null}}">Nessuna categoria</option>
                     @foreach ($categories as $category)
-                        <option value="{{ $category->id }}">{{ $category->name }}</option>
+                        <option @if (old("category_id", $post->category) == $category->id) selected @endif
+                        value="{{ $category->id }}">{{ $category->name }}</option>
                     @endforeach
                 </select>
             </div>
@@ -37,12 +50,12 @@
 
             <div class="form-group">
                 <label for="post_content">Inserisci il contenuto</label>
-                <textarea type="text" class="form-control" name="post_content" id="post_content" placeholder="Contenuto ...">
-                </textarea>
+                <textarea type="text" class="form-control" name="post_content" id="post_content" placeholder="Contenuto ...">{{old("post_content", $post->post_content)}}</textarea>
             </div>
             <div class="form-group">
                 <label for="image_url">Inserisci l'url dell'immagine</label>
-                <input type="text" class="form-control" name="image_url" id="image_url" placeholder="Url ..">
+                <input type="text" class="form-control" name="image_url" id="image_url" placeholder="Url .."
+                value="{{old("image_url", $post->image_url)}}">
             </div>
             <button class="btn btn-primary" type="submit">Salva</button>
             <button class="btn btn-secondary" type="reset">Svuota campi</button>

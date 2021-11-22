@@ -5,6 +5,8 @@
     <div class="container">
         <div class="row">
             <div class="card-body">
+                <a href="{{route("admin.users.index")}}">Torna indietro</a>
+
                 <form method="POST" action="{{ route('admin.users.update', $user) }}">
                     @method("PATCH")
                     @csrf

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use Illuminate\Contracts\Validation\Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Carbon;
 use Illuminate\Http\Request;
@@ -27,12 +28,11 @@ class PostController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Category $categories)
+    public function create(Category $categories, Post $post)
     {
         $categories = Category::all();
-
         $tags = Tag::all();
-        return view("admin.posts.create", compact("categories", "tags"));
+        return view("admin.posts.create", compact("post", "categories", "tags"));
     }
 
     /**
@@ -43,18 +43,35 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
 
-       $data = $request->all();
-       $post = new Post();
-       $post->post_date = Carbon::now()->toDateTimeString();
+                "title" => "required|string|unique:posts|min:8",
+                "author" => "required|string",
+                "category_id" => "nullable|exists:categories,id",
+                "tags" => "nullable|exists:tags,id",
+                "post_content" => "required|string|min:20",
+                "image_url" => "required|string"
+            ],
+            [
+                "title.required" => "Devi inserire il titolo prima di andare avanti",
+                "title.min" => "il titolo deve essere lungo almeno 8 caratteri",
+                "author.required" => "Devi inserire l'autore prima di andare avanti",
+                "post_content.required" => "Devi inserire il contenuto prima di andare avanti",
+                "post_content.min" => "Il contenuto del post deve essere lungo almeno 20 caratteri"
+            ]
+        );
 
-       $post->fill($data);
-       $post->save();
+        $data = $request->all();
+        $post = new Post();
+        $post->post_date = Carbon::now()->toDateTimeString();
 
-       //se esiste una key tags in data la inserisce nel post
-       if(array_key_exists("tags", $data)) $post->tags()->sync($data["tags"]);
+        $post->fill($data);
+        $post->save();
 
-       return redirect()->route("admin.posts.show", compact("post"));
+        //se esiste una key tags in data la inserisce nel post
+        if(array_key_exists("tags", $data)) $post->tags()->sync($data["tags"]);
+
+        return redirect()->route("admin.posts.show", compact("post"));
     }
 
     /**
@@ -93,6 +110,23 @@ class PostController extends Controller
      */
     public function update(Request $request, Post $post)
     {
+        $request->validate([
+
+                "title" => "required|string|unique:posts|min:8",
+                "author" => "required|string",
+                "category_id" => "nullable|exists:categories,id",
+                "tags" => "nullable|exists:tags,id",
+                "post_content" => "required|string|min:20",
+                "image_url" => "required|string"
+            ],
+            [
+                "title.required" => "Devi inserire il titolo prima di andare avanti",
+                "author.required" => "Devi inserire l'autore prima di andare avanti",
+                "post_content.required" => "Devi inserire il contenuto prima di andare avanti",
+                "title.min" => "il titolo deve essere lungo almeno 8 caratteri",
+                "post_content.min" => "Il contenuto del post deve essere lungo almeno 20 caratteri"
+            ]
+        );
 
         $data = $request->all();
         $post->update($data);
