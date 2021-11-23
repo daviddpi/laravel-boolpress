@@ -40,4 +40,8 @@ class User extends Authenticatable
     public function user(){
         return $this->hasOne("App\User");
     }
+
+    public function roles(){
+        return $this->belongsToMany("App\Role");
+    }
 }
