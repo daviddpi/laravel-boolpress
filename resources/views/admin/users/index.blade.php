@@ -13,6 +13,12 @@
                         <li class="list-group-item">
                             Nome: <a href="{{ route("admin.users.show", $user->id) }}">{{$user->name}}</a>
                         </li>
+                        @forelse ($user->roles as $role)
+                            <li class="list-group-item">Tipo: {{$role->name}}</li>
+                            <li class="list-group-item">Livello: {{$role->level}}</li>
+                        @empty
+                            <li class="list-group-item">Nessun Ruolo</li>
+                        @endforelse
                         <li class="list-group-item">ID: {{$user->id}}</li>
                         <li class="list-group-item">Email: {{$user->email}}</li>
                     </ul>
