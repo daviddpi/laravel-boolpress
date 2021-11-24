@@ -18,14 +18,9 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::resource("posts", PostController::class)->only([
-    "index", "show"
-]);
-
-Route::middleware('auth')
-->namespace("Api")
+Route::namespace("Api")
 ->group(function(){
-    Route::resource("posts", PostController::class)->except([
+    Route::resource("posts", PostController::class)->only([
         "index", "show"
     ]);
 });

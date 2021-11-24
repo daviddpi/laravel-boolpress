@@ -31,3 +31,6 @@ Route::middleware('auth')
 });
 
 Route::get('/', 'Guests\HomeController@index')->name('guests.home');
+
+Route::get('posts', 'Guests\HomeController@post')->name("guests.posts");
+

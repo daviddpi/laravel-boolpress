@@ -8,6 +8,8 @@
             <a href="{{route("admin.posts.index")}}">Visualizza i post</a>
             <br>
             <a href="{{route("admin.users.index")}}">Visualizza gli utenti</a>
+            <br>
+            <a href="{{route("guests.posts")}}">Visualizza i post come ospite</a>
         </div>
     </div>
 </div>
