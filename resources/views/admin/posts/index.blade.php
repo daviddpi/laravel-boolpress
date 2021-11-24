@@ -73,6 +73,8 @@
                 <h3>Non ci sono contenuti da visualizzare</h3>
             @endforelse
         </div>
+        {{ $posts->links() }}
+
     </div>
     
 @endsection

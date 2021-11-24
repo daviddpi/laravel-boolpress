@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Contracts\Validation\Validator;
 use App\Http\Controllers\Controller;
+use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Carbon;
 use Illuminate\Http\Request;
 use App\Category;
@@ -19,7 +20,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::all();
+        $posts = Post::paginate(10);
         return view("admin.posts.index", compact("posts"));
     }
 
