@@ -8,7 +8,7 @@
                 <div class="card mb-3">
                     <div class="row no-gutters">
                         <div class="col-md-4">
-                            <img src="{{$post->image_url}}" class="card-img" alt="immagine articolo">
+                            <img src="{{asset("storage/". $post->image_url) }}" class="card-img" alt="immagine articolo">
                         </div>
                         <div class="col-md-8">
                             <div class="card-body">

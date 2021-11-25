@@ -14,7 +14,8 @@
         @endif
 
         <a href="{{route("admin.posts.index")}}">Torna indietro</a>
-        <form action="{{ route("admin.posts.store") }}" method="POST">
+        <form action="{{ route("admin.posts.store") }}" method="POST"
+        enctype="multipart/form-data">
         @csrf
             <div class="form-group">
                 <label for="title">Inserisci il titolo</label>
@@ -53,8 +54,8 @@
                 <textarea type="text" class="form-control" name="post_content" id="post_content" placeholder="Contenuto ...">{{old("post_content", $post->post_content)}}</textarea>
             </div>
             <div class="form-group">
-                <label for="image_url">Inserisci l'url dell'immagine</label>
-                <input type="text" class="form-control" name="image_url" id="image_url" placeholder="Url .."
+                <label for="image_url">Inserisci l'immagine</label>
+                <input type="file" class="form-control" name="image_url" id="image_url" placeholder="..."
                 value="{{old("image_url", $post->image_url)}}">
             </div>
             <button class="btn btn-primary" type="submit">Salva</button>

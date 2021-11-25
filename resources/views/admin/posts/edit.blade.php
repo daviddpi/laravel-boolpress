@@ -14,18 +14,19 @@
         @endif
 
         <a href="{{route("admin.posts.index")}}">Torna indietro</a>
-        <form action="{{ route("admin.posts.update", $post) }}" method="POST">
+        <form action="{{ route("admin.posts.update", $post) }}" method="POST"
+        enctype="multipart/form-data">
         @method("PATCH")
         @csrf
             <div class="form-group">
                 <label for="title">Inserisci il titolo</label>
                 <input type="text" class="form-control" name="title" id="title" placeholder="Titolo"
-                value="{{old("title",$post->title)}}" required>
+                value="{{old("title",$post->title)}}">
             </div>
             <div class="form-group">
                 <label for="author">Inserisci l'autore</label>
                 <input type="text" class="form-control" name="author" id="author" placeholder="Autore"
-                value="{{old("author", $post->author)}}" required>
+                value="{{old("author", $post->author)}}">
             </div>
             <div class="form-group">
                 <select name="category_id" id="category_id">
@@ -49,14 +50,14 @@
             </div>
             <div class="form-group">
                 <label for="post_content">Inserisci il contenuto</label>
-                <textarea type="text" class="form-control" name="post_content" id="post_content" placeholder="Contenuto ..." required>
+                <textarea type="text" class="form-control" name="post_content" id="post_content" placeholder="Contenuto ...">
                     {{old("post_content", $post->post_content)}}
                 </textarea>
             </div>
             <div class="form-group">
-                <label for="image_url">Inserisci l'url dell'immagine</label>
-                <input type="text" class="form-control" name="image_url" id="image_url" placeholder="Url .."
-                value="{{old("image_url", $post->image_url)}}" required>
+                <label for="image_url">Inserisci l'immagine</label>
+                <input type="file" class="form-control" name="image_url" id="image_url" placeholder="..."
+                value="{{old("image_url", $post->image_url)}}">
             </div>
             <button class="btn btn-primary" type="submit">Salva</button>
             <button class="btn btn-secondary" type="reset">Svuota campi</button>

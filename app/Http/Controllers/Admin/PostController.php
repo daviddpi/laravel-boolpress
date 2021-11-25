@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use Illuminate\Contracts\Validation\Validator;
+use Illuminate\Support\Facades\Storage;
 use App\Http\Controllers\Controller;
 use Illuminate\Pagination\Paginator;
+use Illuminate\Validation\Rule;
 use Illuminate\Support\Carbon;
 use Illuminate\Http\Request;
 use App\Category;
@@ -42,16 +44,17 @@ class PostController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, Post $post)
     {
         $request->validate([
 
-                "title" => "required|string|unique:posts|min:8",
-                "author" => "required|string",
-                "category_id" => "nullable|exists:categories,id",
-                "tags" => "nullable|exists:tags,id",
-                "post_content" => "required|string|min:20",
-                "image_url" => "required|string"
+            "title" => "required|string|unique:posts|min:8",
+            "author" => "required|string",
+            "category_id" => "nullable|exists:categories,id",
+            "tags" => "nullable|exists:tags,id",
+            "post_content" => "required|string|min:20",
+            "image_url" => "required|mimes:jpg,png,jpeg,gif,svg"
+
             ],
             [
                 "title.required" => "Devi inserire il titolo prima di andare avanti",
@@ -65,7 +68,7 @@ class PostController extends Controller
         $data = $request->all();
         $post = new Post();
         $post->post_date = Carbon::now()->toDateTimeString();
-
+        $data["image_url"] = Storage::put("public", $data["image_url"]);
         $post->fill($data);
         $post->save();
 
@@ -96,6 +99,7 @@ class PostController extends Controller
     {
         $categories = Category::all();
         $tags = Tag::all();
+        
 
         $tagIds = $post->tags->pluck("id")->toArray();
 
@@ -113,12 +117,15 @@ class PostController extends Controller
     {
         $request->validate([
 
-                "title" => "required|string|unique:posts|min:8",
+                "title" => [
+                    "required","string","min:8",
+                    Rule::unique("posts")->ignore($post->id)
+                ],
                 "author" => "required|string",
                 "category_id" => "nullable|exists:categories,id",
                 "tags" => "nullable|exists:tags,id",
                 "post_content" => "required|string|min:20",
-                "image_url" => "required|string"
+                "image_url" => "required|mimes:jpg,png,jpeg,gif,svg"
             ],
             [
                 "title.required" => "Devi inserire il titolo prima di andare avanti",
@@ -128,10 +135,9 @@ class PostController extends Controller
                 "post_content.min" => "Il contenuto del post deve essere lungo almeno 20 caratteri"
             ]
         );
-
         $data = $request->all();
+        $data["image_url"] = Storage::put("public", $data["image_url"]);
         $post->update($data);
-
         if(array_key_exists("tags", $data)) $post->tags()->sync($data["tags"]);
 
         return redirect()->route("admin.posts.show", compact("post"));
